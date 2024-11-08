@@ -11,10 +11,10 @@ const Hero = () => {
       };
   return (
     <div className="max-w-4xl mx-auto text-center py-20 px-4">
-      <h1 className="font-bold text-4xl md:text-6xl mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+      <h1 className="font-bold text-4xl md:text-6xl mb-6 text-gradient">
         Calculate Your MoMo Charges Instantly
       </h1>
-      <p className="text-lg mb-8 text-default-600">
+      <p className="text-lg mb-8 text-foreground/90">
         Fast, accurate mobile money transfer fee calculations across all
         networks
       </p>
@@ -22,7 +22,7 @@ const Hero = () => {
         size="lg"
         color="primary"
         href="#calculator"
-        className="font-semibold"
+        className="font-semibold text-primary-foreground"
         onClick={() => scrollToSection("calculator")}
       >
         Calculate Now

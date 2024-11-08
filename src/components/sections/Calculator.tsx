@@ -115,9 +115,7 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
           className="text-center mb-24"
         >
           <h2 className="text-3xl font-bold mb-4">Calculate Your Charges</h2>
-          <p className="text-default-600">
-            Get instant fee calculations for any mobile money transfer
-          </p>
+          <p>Get instant fee calculations for any mobile money transfer</p>
         </motion.div>
 
         <motion.div
@@ -159,7 +157,7 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
                   >
                     <div
                       className={`
-                      relative w-48 h-48 sm:w-72 sm:h-72 rounded-xl overflow-hidden
+                      relative w-44 h-44 sm:w-72 sm:h-72 rounded-xl overflow-hidden
                       transition-all duration-300
                     `}
                     >

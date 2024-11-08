@@ -41,8 +41,10 @@ const FAQ = () => {
         transition={{ duration: 0.5 }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-        <p className="text-default-600">
+        <h2 className="text-3xl font-bold mb-4 text-default-800">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-default-700">
           Everything you need to know about mobile money transfers
         </p>
       </motion.div>
@@ -59,10 +61,10 @@ const FAQ = () => {
             <AccordionItem
               key={index}
               aria-label={faq.question}
-              title={faq.question}
-              className="text-left"
+              title={<p className="text-default-800">{faq.question}</p>}
+              className="text-left text-default-800"
             >
-              <p className="text-default-600">{faq.answer}</p>
+              <p>{faq.answer}</p>
             </AccordionItem>
           ))}
         </Accordion>

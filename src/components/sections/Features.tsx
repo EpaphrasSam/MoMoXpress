@@ -46,8 +46,10 @@ const Features = () => {
         transition={{ duration: 0.5 }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl font-bold mb-4">Why Choose MoMoXpress?</h2>
-        <p className="text-default-600">
+        <h2 className="text-3xl font-bold mb-4 text-default-800">
+          Why Choose MoMoXpress?
+        </h2>
+        <p className="text-default-700">
           Simple, fast, and accurate mobile money calculations
         </p>
       </motion.div>
@@ -61,11 +63,13 @@ const Features = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Card className="h-full">
+            <Card className="h-full bg-card">
               <CardBody className="flex flex-col items-center text-center p-6">
                 <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-default-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="text-foreground/90">{feature.description}</p>
               </CardBody>
             </Card>
           </motion.div>

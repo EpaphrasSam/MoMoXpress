@@ -43,17 +43,19 @@ const AppNavbar = () => {
       isBordered
       maxWidth="xl"
       isBlurred
-      className="bg-background/70"
+      className="bg-background/80 backdrop-blur-md border-accent"
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="md:hidden"
+          className="md:hidden text-foreground"
           icon={(open) => (open ? <FaTimes size={24} /> : <FaBars size={24} />)}
         />
         <NavbarBrand className="cursor-pointer" onClick={scrollToTop}>
-          <p className="font-bold text-inherit">MoMoXpress</p>
+          <p className="font-bold hover:text-primary transition-colors">
+            MoMoXpress
+          </p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -62,7 +64,7 @@ const AppNavbar = () => {
         {menuItems.map((item) => (
           <NavbarItem key={item.id}>
             <Link
-              className="cursor-pointer"
+              className="cursor-pointer text-foreground/80 hover:text-primary transition-colors"
               onClick={() => scrollToSection(item.id)}
             >
               {item.name}
@@ -72,11 +74,11 @@ const AppNavbar = () => {
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu>
+      <NavbarMenu className="bg-background/95 backdrop-blur-md">
         {menuItems.map((item) => (
           <NavbarMenuItem key={item.id}>
             <Link
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer text-foreground/80 hover:text-primary transition-colors"
               onClick={() => scrollToSection(item.id)}
               size="lg"
             >
