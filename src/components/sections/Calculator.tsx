@@ -35,7 +35,11 @@ const containerVariants = {
   },
 };
 
-export default function Calculator({ telcos }: { telcos: Telco[] }) {
+interface CalculatorProps {
+  telcos?: Telco[];
+}
+
+export default function Calculator({ telcos = [] }: CalculatorProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [receiverTelco, setReceiverTelco] = useState<Telco | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -256,6 +260,7 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
                               className="object-contain"
                             />
                           }
+                          className="text-default-800"
                         >
                           {telco.name}
                         </DropdownItem>
@@ -272,7 +277,11 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
                 {...register("amount")}
                 errorMessage={errors.amount?.message}
                 isInvalid={!!errors.amount}
-                startContent={<div className="pointer-events-none text-default-800">GH₵</div>}
+                startContent={
+                  <div className="pointer-events-none text-default-800">
+                    GH₵
+                  </div>
+                }
               />
 
               <Button
@@ -281,7 +290,6 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
                 size="lg"
                 onClick={handleSubmit(onSubmit)}
                 isLoading={isLoading}
-                
               >
                 {isLoading ? "Calculating..." : "Calculate Charges"}
               </Button>

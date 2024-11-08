@@ -1,5 +1,6 @@
 import { getTelcos } from "@/services/telcoService";
 import Calculator from "@/components/sections/Calculator";
+import ServiceUnavailable from "@/components/fallback/ServiceUnavailable";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import AppNavbar from "@/components/layout/AppNavbar";
@@ -8,7 +9,7 @@ import Features from "@/components/sections/Features";
 import FAQ from "@/components/sections/FAQ";
 
 export default async function Home() {
-  const telcos = await getTelcos();
+  const { data: telcos, error } = await getTelcos();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,7 +23,7 @@ export default async function Home() {
           <Features />
         </section>
         <section id="calculator" className="py-20">
-          <Calculator telcos={telcos} />
+          {error ? <ServiceUnavailable /> : <Calculator telcos={telcos} />}
         </section>
         <section id="faq" className="py-20 bg-default-50">
           <FAQ />
