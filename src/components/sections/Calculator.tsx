@@ -272,15 +272,16 @@ export default function Calculator({ telcos }: { telcos: Telco[] }) {
                 {...register("amount")}
                 errorMessage={errors.amount?.message}
                 isInvalid={!!errors.amount}
-                startContent={<div className="pointer-events-none">GH₵</div>}
+                startContent={<div className="pointer-events-none text-default-800">GH₵</div>}
               />
 
               <Button
                 color="primary"
-                className="w-full"
+                className="w-full bg-[#19172c] dark:bg-[#19172c] text-white"
                 size="lg"
                 onClick={handleSubmit(onSubmit)}
                 isLoading={isLoading}
+                
               >
                 {isLoading ? "Calculating..." : "Calculate Charges"}
               </Button>
