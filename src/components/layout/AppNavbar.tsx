@@ -20,8 +20,8 @@ const AppNavbar = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
     }
-    setIsMenuOpen(false);
   };
 
   const scrollToTop = () => {
@@ -44,6 +44,7 @@ const AppNavbar = () => {
       maxWidth="xl"
       isBlurred
       className="bg-background/80 backdrop-blur-md border-accent"
+      isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent>
@@ -59,7 +60,6 @@ const AppNavbar = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      {/* Desktop Menu */}
       <NavbarContent className="hidden md:flex" justify="end">
         {menuItems.map((item) => (
           <NavbarItem key={item.id}>
@@ -73,7 +73,6 @@ const AppNavbar = () => {
         ))}
       </NavbarContent>
 
-      {/* Mobile Menu */}
       <NavbarMenu className="bg-background/95 backdrop-blur-md">
         {menuItems.map((item) => (
           <NavbarMenuItem key={item.id}>
