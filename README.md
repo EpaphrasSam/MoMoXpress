@@ -4,7 +4,7 @@ MoMoXpress is a modern web application that helps users calculate mobile money (
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://momoxpress.vercel.app)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14.0-black)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.0-black)](https://nextjs.org/)
 
 ## ✨ Features
 
@@ -19,7 +19,7 @@ MoMoXpress is a modern web application that helps users calculate mobile money (
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/)
+- **Framework**: [Next.js 15](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**:
   - [Tailwind CSS](https://tailwindcss.com/)
@@ -27,7 +27,6 @@ MoMoXpress is a modern web application that helps users calculate mobile money (
 - **Form Validation**:
   - [Zod](https://zod.dev/) for schema validation
   - Custom phone number validation
-- **SMS Integration**: Custom SMS service for newsletter updates
 - **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
 - **Fonts**: Geist Font Family
 - **Development Tools**:
