@@ -1,11 +1,11 @@
 import { getTelcos } from "@/services/telcoService";
-import Calculator from "@/components/Calculator";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import AppNavbar from "@/components/AppNavbar";
-import About from "@/components/About";
-import Features from "@/components/Features";
-import FAQ from "@/components/FAQ";
+import Calculator from "@/components/sections/Calculator";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/sections/Hero";
+import AppNavbar from "@/components/layout/AppNavbar";
+import About from "@/components/sections/About";
+import Features from "@/components/sections/Features";
+import FAQ from "@/components/sections/FAQ";
 
 export default async function Home() {
   const telcos = await getTelcos();
