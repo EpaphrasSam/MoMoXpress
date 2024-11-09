@@ -15,8 +15,10 @@ export const calculatorSchema = z
     amount: z
       .string()
       .min(1, "Amount is required")
-      .transform(Number)
-      .refine((val) => val > 0, "Amount must be greater than 0"),
+      .refine(
+        (val) => !isNaN(Number(val)) && Number(val) > 0,
+        "Amount must be greater than 0"
+      )
   })
   .refine((data) => data.senderPhone !== data.receiverPhone, {
     message: "Sender and receiver phone numbers cannot be the same",

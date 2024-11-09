@@ -14,7 +14,7 @@ import Image from "next/image";
 import { motion, MotionConfig } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Telco } from "@/types/telcoTypes";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createCalculatorValidation,
@@ -35,6 +35,12 @@ const containerVariants = {
   },
 };
 
+const defaultValues = {
+  senderPhone: "",
+  receiverPhone: "",
+  amount: "",
+};
+
 interface CalculatorProps {
   telcos?: Telco[];
 }
@@ -46,20 +52,23 @@ export default function Calculator({ telcos = [] }: CalculatorProps) {
   const [showResults, setShowResults] = useState(false);
   const [charges, setCharges] = useState<ChargeResult | null>(null);
 
-  useEffect(() => {
-    setReceiverTelco(telcos[selectedIndex]);
-  }, [selectedIndex, telcos]);
-
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     clearErrors,
+    reset,
   } = useForm<CalculatorFormData>({
     resolver: zodResolver(
       createCalculatorValidation(telcos[selectedIndex], receiverTelco)
     ),
+    defaultValues,
+    mode: "onChange",
   });
+
+  useEffect(() => {
+    setReceiverTelco(telcos[selectedIndex]);
+  }, [selectedIndex, telcos]);
 
   const handleTelcoSelect = (index: number) => {
     setSelectedIndex(index);
@@ -76,7 +85,7 @@ export default function Calculator({ telcos = [] }: CalculatorProps) {
           receiverTelco?.name || ""
         );
         resolve(result);
-      }, 1500);
+      }, 2000);
     });
   };
 
@@ -101,6 +110,13 @@ export default function Calculator({ telcos = [] }: CalculatorProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleReset = () => {
+    reset(defaultValues);
+    clearErrors();
+    setCharges(null);
+    setShowResults(false);
   };
 
   return (
@@ -205,83 +221,107 @@ export default function Calculator({ telcos = [] }: CalculatorProps) {
 
           <Card className="max-w-md mx-auto">
             <CardBody className="gap-4">
-              <Input
-                type="number"
-                label="Sender's Phone Number"
-                placeholder="Enter phone number"
-                {...register("senderPhone")}
-                errorMessage={errors.senderPhone?.message}
-                isInvalid={!!errors.senderPhone}
+              <Controller
+                name="senderPhone"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="number"
+                    label="Sender's Phone Number"
+                    placeholder="Enter phone number"
+                    {...field}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    errorMessage={errors.senderPhone?.message}
+                    isInvalid={!!errors.senderPhone}
+                  />
+                )}
               />
 
-              <Input
-                type="number"
-                label="Receiver's Phone Number"
-                placeholder="Enter phone number"
-                {...register("receiverPhone")}
-                errorMessage={errors.receiverPhone?.message}
-                isInvalid={!!errors.receiverPhone}
-                endContent={
-                  <Dropdown>
-                    <DropdownTrigger>
-                      <Button variant="light" isIconOnly className="p-0">
-                        {receiverTelco ? (
-                          <Image
-                            src={receiverTelco.logo}
-                            alt={receiverTelco.name}
-                            width={24}
-                            height={24}
-                            className="object-contain"
-                          />
-                        ) : (
-                          <span className="text-default-400">Select</span>
-                        )}
-                      </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                      aria-label="Select receiver's telco"
-                      onAction={(key) => {
-                        const telco = telcos.find((t) => t.name === key);
-                        if (telco) {
-                          setReceiverTelco(telco);
-                          clearErrors();
-                        }
-                      }}
-                    >
-                      {telcos.map((telco) => (
-                        <DropdownItem
-                          key={telco.name}
-                          startContent={
-                            <Image
-                              src={telco.logo}
-                              alt={telco.name}
-                              width={24}
-                              height={24}
-                              className="object-contain"
-                            />
-                          }
-                          className="text-default-800"
+              <Controller
+                name="receiverPhone"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="number"
+                    label="Receiver's Phone Number"
+                    placeholder="Enter phone number"
+                    {...field}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    errorMessage={errors.receiverPhone?.message}
+                    isInvalid={!!errors.receiverPhone}
+                    endContent={
+                      <Dropdown>
+                        <DropdownTrigger>
+                          <Button variant="light" isIconOnly className="p-0">
+                            {receiverTelco ? (
+                              <Image
+                                src={receiverTelco.logo}
+                                alt={receiverTelco.name}
+                                width={24}
+                                height={24}
+                                className="object-contain"
+                              />
+                            ) : (
+                              <span className="text-default-400">Select</span>
+                            )}
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                          aria-label="Select receiver's telco"
+                          onAction={(key) => {
+                            const telco = telcos.find((t) => t.name === key);
+                            if (telco) {
+                              setReceiverTelco(telco);
+                              clearErrors();
+                            }
+                          }}
                         >
-                          {telco.name}
-                        </DropdownItem>
-                      ))}
-                    </DropdownMenu>
-                  </Dropdown>
-                }
+                          {telcos.map((telco) => (
+                            <DropdownItem
+                              key={telco.name}
+                              startContent={
+                                <Image
+                                  src={telco.logo}
+                                  alt={telco.name}
+                                  width={24}
+                                  height={24}
+                                  className="object-contain"
+                                />
+                              }
+                              className="text-default-800"
+                            >
+                              {telco.name}
+                            </DropdownItem>
+                          ))}
+                        </DropdownMenu>
+                      </Dropdown>
+                    }
+                  />
+                )}
               />
 
-              <Input
-                type="number"
-                label="Amount"
-                placeholder="Enter amount"
-                {...register("amount")}
-                errorMessage={errors.amount?.message}
-                isInvalid={!!errors.amount}
-                startContent={
-                  <div className="pointer-events-none text-default-800">
-                    GH₵
-                  </div>
-                }
+              <Controller
+                name="amount"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="number"
+                    label="Amount"
+                    placeholder="Enter amount"
+                    {...field}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    errorMessage={errors.amount?.message}
+                    isInvalid={!!errors.amount}
+                    startContent={
+                      <div className="pointer-events-none text-default-800">
+                        GH₵
+                      </div>
+                    }
+                  />
+                )}
               />
 
               <Button
@@ -294,11 +334,15 @@ export default function Calculator({ telcos = [] }: CalculatorProps) {
                 {isLoading ? "Calculating..." : "Calculate Charges"}
               </Button>
 
-              {charges && (
+              {charges && showResults && (
                 <Results
                   isOpen={showResults}
-                  onClose={() => setShowResults(false)}
+                  onClose={() => {
+                    setShowResults(false);
+                    handleReset();
+                  }}
                   charges={charges}
+                  reset={handleReset}
                 />
               )}
             </CardBody>

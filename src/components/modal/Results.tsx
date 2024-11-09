@@ -24,9 +24,10 @@ interface ResultsProps {
   isOpen: boolean;
   onClose: () => void;
   charges: ChargeResult;
+  reset: () => void;
 }
 
-const Results = ({ isOpen, onClose, charges }: ResultsProps) => {
+const Results = ({ isOpen, onClose, charges, reset }: ResultsProps) => {
   const formatAmount = (amount: number) => `GH₵ ${amount.toFixed(2)}`;
   const isCrossNetwork =
     charges.transactionDetails?.senderNetwork !==
@@ -60,6 +61,12 @@ const Results = ({ isOpen, onClose, charges }: ResultsProps) => {
   const handleNewsletterSuccess = () => {
     setShowNewsletter(false);
     onClose();
+    reset();
+  };
+
+  const handleClose = () => {
+    onClose();
+    reset();
   };
 
   return (
@@ -68,7 +75,7 @@ const Results = ({ isOpen, onClose, charges }: ResultsProps) => {
         {isOpen && (
           <Modal
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             size="lg"
             classNames={{
               body: "py-6",
